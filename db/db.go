@@ -5,4 +5,4 @@ import (
 	"github.com/shashankbhat10/Fetch-Backend-Assessment/models"
 )
 
-var receipts map[uuid.UUID]models.Receipt
+var Receipts map[uuid.UUID]models.Receipt
