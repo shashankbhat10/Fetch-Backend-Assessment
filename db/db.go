@@ -5,4 +5,13 @@ import (
 	"github.com/shashankbhat10/Fetch-Backend-Assessment/models"
 )
 
-var Receipts map[uuid.UUID]models.Receipt
+type DB struct {
+	Receipts map[uuid.UUID]models.Receipt
+}
+
+func Init() DB {
+	store := DB{}
+	store.Receipts = make(map[uuid.UUID]models.Receipt)
+
+	return store
+}

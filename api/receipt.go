@@ -15,7 +15,7 @@ func (server *Server) ReceiptRoutes(router fiber.Router) {
 	// Add receipt to DB and return receiptID
 	router.Post("/process", server.StoreReceipt)
 	// Get total points earned by a receipt
-	router.Get("/:id/points")
+	router.Get("/:id/points", server.GetPoints)
 }
 
 func (server *Server) StoreReceipt(ctx *fiber.Ctx) error {
@@ -57,7 +57,10 @@ func (server *Server) GetPoints(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusNotFound).JSON(models.ErrorResponse{Error: "No receipt found for given receipt ID"})
 	}
 
-	points := util.GetPoints(receipt)
+	points, err := util.GetPoints(receipt)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(models.ErrorResponse{Error: err.Error()})
+	}
 
 	return ctx.Status(fiber.StatusOK).JSON(models.GetPointsResponse{Points: points})
 }

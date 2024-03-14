@@ -17,7 +17,7 @@ type Server struct {
 
 func NewServer() (*Server, error) {
 	server := &Server{
-		store: db.Receipts,
+		store: db.Init().Receipts,
 		// Can be read from environment variable
 		port: "8082",
 	}
@@ -28,7 +28,10 @@ func NewServer() (*Server, error) {
 	}))
 	app.Use(logger.New(logger.Config{Format: "${status} - ${method} ${path}\n"}))
 
+	// Routes
 	app.Route("/receipts", server.ReceiptRoutes)
+
+	server.app = app
 
 	return server, nil
 }
