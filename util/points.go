@@ -2,7 +2,6 @@ package util
 
 import (
 	"errors"
-	"fmt"
 	"math"
 	"strconv"
 	"strings"
@@ -96,7 +95,6 @@ func getPointsForDateTime(datestr string, timestr string) (int, error) {
 		}
 	}
 
-	fmt.Println(datestr)
 	receiptDate, err := time.Parse(time.DateOnly, datestr)
 	if err != nil {
 		return 0, errors.New("invalid receipt date")
